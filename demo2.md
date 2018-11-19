@@ -33,7 +33,11 @@ $ curl -sSL https://get.rvm.io | bash -s stable
 
  * To start using RVM you need to run `source /home/ec2-user/.rvm/scripts/rvm`
    in all your open shell windows, in rare cases you need to reopen all shell windows.
-   
+```
+
+시키는대로 한다 위에 나와있는 명령어를 마우스 왼클릭후 드래그로 잡고 마우스 우클릭하면 그대로 복사된다!!
+
+```
 $ source /home/ec2-user/.rvm/scripts/rvm
 $ rvm --version
 rvm 1.29.4 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://rvm.io]
@@ -41,7 +45,7 @@ rvm 1.29.4 (latest) by Michal Papis, Piotr Kuczynski, Wayne E. Seguin [https://r
 
 #### Ruby / Rails 다운로드 
 
-- 굳이 rails 까지 다운로드 할필요 없지만 EC2 환경에서 rails 코딩이나 간단한 테스트를 할때를 위해 rails 다운로드 해주겠다.
+- 굳이 rails 까지 다운로드 할필요 없지만 간단한 테스트를 위해 rails 다운로드 해주겠다.
  
 ```
 $ rvm install 'ruby-2.5.2'  # or 2.2.7 or 2.3.3 본인의 프로젝트와 맞는 ruby를 다운로드해준다. 
@@ -54,12 +58,12 @@ $ vi Gemfile                # i 로 입력 모드로 들어간다.
 
 `Gemfile` 파일
 ```
-source 'https://rubygems.org'
-ruby '2.5.2'
+source 'https://rubygems.org' # 해당 부분을 적어지주 않으면 gemfile이 다운되지 않는다. 
+ruby '2.5.2'                # 없어도 무관하지만 ruby 버전을 명시해주면 의존성에 도움된다. 
 
 gem 'rails'                 # rails의 버전은 본인이 편한대로 설정해준다.  
 ```
-- :wq - vim으로 Gemfile 을 수정/종료해준다. 
+:wq - vim으로 Gemfile 을 수정/종료해준다. 
 
 ```
 $ bundle update
@@ -82,57 +86,37 @@ Total download size: 1.1 M
 Installed size: 2.0 M
 Is this ok [y/d/N]: y
     ...
+
+이후에 나올 오류를 미리 예방하기위해 명령어 몇줄을 더 입력해준다. 
 # sudo dd if=/dev/zero of=/swap bs=1M count=1024
 # sudo mkswap /swap
 # sudo swapon /swap
 # sudo chmod o+x "/home/ec2-user"
+
+본격적으로  passenger와 nginx 를 다운로드한다. 
 # passenger-install-nginx-module
 
 Press Enter to continue, or Ctrl-C to abort. 
-....
+나오면 바로 Enter !
+    ....
+Which languages are you interested in?
 Use Space to select
 Shift + 1 로 루비만 선택해주고 enter 
 
 Automatically download and install Nginx?
     ...
-1 Enter
+Enter your choice (1 ro 2) or press Ctrl-C to abort: 
+나오면 1 Enter!
+    ...
+Where do you want to install Nginx to? 
+Please specify a precix directory [/opt/nginx]:
+나오면 그냥 Enter!(default)
     ...
 Nginx with Passenger support was successfully installed.
     ...
 Press Enter to continue.
-
-# exit
-$ pwd                       # 현재 root의 위치확인후 복사해두기
-
-$ sudo vi /opt/nginx/conf/nginx.conf
+하라는대로 하자 Enter
 ```
+설치 완료!!
 
-파일안의 server 의 localtion / 에서 root 를 방금전 확인한 root 의 위치로 바꾸어준다.  
-그리고 해당 위치에서 테스트를 위한 index.html 를 만들어서 테스트해보자. 
-`index.html` 파일 
-
-```
-<!DOCTYPE html>
-<html>
-<head>
-        <title>Likelion</title>
-</head>
-<body>
-        <h1>Likelion</h1>
-        <h2>testing...</h2>
-</body>
-</html>
-```
-
-파일완성후..
-`$ sudo /opt/nginx/sbin/nginx ` 해당명령어는 nginx 서버를 켜는 명령어이다. 
-
-그리고 알아두면 좋은 명령어들 
-``` 
-$ sudo fuser -k 80/tcp 
-
-$ touch tmp/restart.txt
-
-$ tail -f log/production.log
-
-```
+#### [서버 테스트](demo3.md)

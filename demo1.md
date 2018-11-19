@@ -16,7 +16,10 @@
 #### mac 설정
 
 - 터미널을 켠다. 
-- chmod 400 파일위치/파일명.pem
-- ssh -i 파일위치/파일명.pem ec2-user@ip주소
+`$ chmod 400 Downloads/YOUR-FILE-NAME.pem`  
+pem 파일의 권한을 설정해주는 것이다. 
+`ssh -i Downloads/YOUR-FILE-NAME.pem ec2-user@Public DNS`
+ssh 연결을 해준다. 
+
 
 #### [기본 설치](demo2.md)
