@@ -67,3 +67,72 @@ $ rails -v
 Rails 5.2.1                 # Gemfile 에서 rails버전을 선택해주지 않았다면, 
                             # 해당 루비버전과 호환성이 맞는 rails 버전으로 자동으로 설치된다. 
 ```
+
+### passenger & Nginx 다운로드 
+
+```
+$ gem install passenger 
+
+$ sudo passwd               # 관리자권한 패스워드 설정
+$ su 
+
+# sudo yum install libcurl-devel.x86_64
+    ...
+Total download size: 1.1 M
+Installed size: 2.0 M
+Is this ok [y/d/N]: y
+    ...
+# sudo dd if=/dev/zero of=/swap bs=1M count=1024
+# sudo mkswap /swap
+# sudo swapon /swap
+# sudo chmod o+x "/home/ec2-user"
+# passenger-install-nginx-module
+
+Press Enter to continue, or Ctrl-C to abort. 
+....
+Use Space to select
+Shift + 1 로 루비만 선택해주고 enter 
+
+Automatically download and install Nginx?
+    ...
+1 Enter
+    ...
+Nginx with Passenger support was successfully installed.
+    ...
+Press Enter to continue.
+
+# exit
+$ pwd                       # 현재 root의 위치확인후 복사해두기
+
+$ sudo vi /opt/nginx/conf/nginx.conf
+```
+
+파일안의 server 의 localtion / 에서 root 를 방금전 확인한 root 의 위치로 바꾸어준다.  
+그리고 해당 위치에서 테스트를 위한 index.html 를 만들어서 테스트해보자. 
+`index.html` 파일 
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Likelion</title>
+</head>
+<body>
+        <h1>Likelion</h1>
+        <h2>testing...</h2>
+</body>
+</html>
+```
+
+파일완성후..
+`$ sudo /opt/nginx/sbin/nginx ` 해당명령어는 nginx 서버를 켜는 명령어이다. 
+
+그리고 알아두면 좋은 명령어들 
+``` 
+$ sudo fuser -k 80/tcp 
+
+$ touch tmp/restart.txt
+
+$ tail -f log/production.log
+
+```

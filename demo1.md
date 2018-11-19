@@ -19,4 +19,4 @@
 - chmod 400 파일위치/파일명.pem
 - ssh -i 파일위치/파일명.pem ec2-user@ip주소
 
-#### [기본 설치](rubyandrails.md)
+#### [기본 설치](demo2.md)

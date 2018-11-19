@@ -31,4 +31,4 @@ AWS EC2
 - 선택된 EC2 에서 '퍼블릭 DNS(IPv4)'를 복사(저장)해둔다. 
 ![demo](/demo/pic13.png)  
 
-#### [ec2 연결하기](putty.md)
+#### [ec2 연결하기](demo1.md)
