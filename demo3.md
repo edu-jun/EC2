@@ -48,5 +48,4 @@ root에 /testapp/public을 추가해준다.
 
 이후 rails app production 세팅하는건 직접 구글링을 통해서 ...
 
-
-이상 세션 끝.
+#### [간단한 DNS 설정](demo4.md)
